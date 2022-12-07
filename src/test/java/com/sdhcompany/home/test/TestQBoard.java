@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import com.sdhcompany.home.entity.AnswerBoard;
 import com.sdhcompany.home.entity.QuestionBoard;
+import com.sdhcompany.home.repository.ABoardRepository;
 import com.sdhcompany.home.repository.QboardRepository;
 
 @SpringBootTest
@@ -21,6 +23,8 @@ public class TestQBoard {
 	
 	@Autowired
 	QboardRepository qboardRepository;
+	@Autowired
+	ABoardRepository aBoardRepository;
 	
 	@Test
 	@DisplayName("저장테스트")
@@ -100,37 +104,51 @@ public class TestQBoard {
 	@Test
 	@DisplayName("삭제테스트01")
 	public void deleteQuestion() {
-//		List<QuestionBoard> qAll =  qboardRepository.findAll();
-//		int qAllSize1 = qAll.size(); //모든글의 개수
-//		
-//		Optional<QuestionBoard> deleteId = qboardRepository.findById(3);
-//		QuestionBoard dd= deleteId.get();
-//		
-//		qboardRepository.delete(dd);
-//		
-//		qAll =  qboardRepository.findAll();
-//		int qAllSize2 = qAll.size(); //모든글의 개수
-//		assertEquals(qAllSize2, qAllSize1-1);
-//-----------------------------------------------------------------------------------		
+		List<QuestionBoard> qAll =  qboardRepository.findAll();
+		int qAllSize1 = qAll.size(); //모든글의 개수
 		
-//		List<QuestionBoard> qAll =  qboardRepository.findAll();
-//		int qAllSize1 = qAll.size(); //모든글의 개수
-		
-		long qAllSize1 = qboardRepository.count(); //모든 데이터 개수 조회
 		Optional<QuestionBoard> deleteId = qboardRepository.findById(3);
-		
-		assertTrue(deleteId.isPresent());
-		
 		QuestionBoard dd= deleteId.get();
 		
+		qboardRepository.delete(dd);
 		
-		
-		qboardRepository.deleteById(4);
-		
-//		qAll =  qboardRepository.findAll();
-//		int qAllSize2 = qAll.size(); //모든글의 개수
-		long qAllSize2 = qboardRepository.count();
+		qAll =  qboardRepository.findAll();
+		int qAllSize2 = qAll.size(); //모든글의 개수
 		assertEquals(qAllSize2, qAllSize1-1);
+//-----------------------------------------------------------------------------------		
+		
+////		List<QuestionBoard> qAll =  qboardRepository.findAll();
+////		int qAllSize1 = qAll.size(); //모든글의 개수
+//		
+//		long qAllSize1 = qboardRepository.count(); //모든 데이터 개수 조회
+//		Optional<QuestionBoard> deleteId = qboardRepository.findById(3);
+//		
+//		assertTrue(deleteId.isPresent());
+//		
+////		QuestionBoard dd= deleteId.get();
+//		
+//		
+//		
+//		qboardRepository.deleteById(4);
+//		
+////		qAll =  qboardRepository.findAll();
+////		int qAllSize2 = qAll.size(); //모든글의 개수
+//		long qAllSize2 = qboardRepository.count();
+//		assertEquals(qAllSize2, qAllSize1-1);
 		
 	}
+//	@Test
+//	@DisplayName("답변 저장 테스트")
+//	public void AnswerCreatTest() {
+//		
+//		Optional<QuestionBoard> oQboard = qboardRepository.findById(7);
+//		assertTrue(oQboard.isPresent()); //7번 질문글이 존재하는지 테스트
+//		
+//		QuestionBoard qBoard = oQboard.get();
+//		AnswerBoard aBoard = new AnswerBoard();
+//		aBoard.setContent("7번글 답변입니다.");
+//		aBoard.setQuestionBoard(qBoard);
+//		aBoardRepository.save(aBoard);
+//		
+//	}
 }
